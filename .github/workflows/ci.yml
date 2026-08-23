@@ -1,0 +1,61 @@
+name: CI and Release
+
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+    tags:
+      - 'v*'
+
+permissions:
+  contents: read
+
+jobs:
+  flatpak:
+    name: Build and test Flatpak
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/flathub-infra/flatpak-github-actions:gnome-50
+      options: --privileged
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build and test
+        uses: flatpak/flatpak-github-actions/flatpak-builder@v6
+        with:
+          manifest-path: com.dmfigueroa.LiturgicalBackgroundGNOME.json
+          bundle: liturgical-background-gnome.flatpak
+          repository-url: https://flathub.org/repo/flathub.flatpakrepo
+          run-tests: true
+          upload-artifact: false
+
+      - name: Upload release bundle
+        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
+        uses: actions/upload-artifact@v4
+        with:
+          name: liturgical-background-gnome-flatpak
+          path: liturgical-background-gnome.flatpak
+          if-no-files-found: error
+
+  release:
+    name: Publish GitHub Release
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
+    needs: flatpak
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: liturgical-background-gnome-flatpak
+          path: dist
+
+      - name: Create release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" \
+            dist/liturgical-background-gnome.flatpak \
+            --verify-tag \
+            --generate-notes

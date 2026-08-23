@@ -1,0 +1,4 @@
+# List of source files containing translatable strings.
+# Please keep this file sorted alphabetically.
+data/com.dmfigueroa.LiturgicalBackgroundGNOME.desktop.in
+data/com.dmfigueroa.LiturgicalBackgroundGNOME.metainfo.xml.in

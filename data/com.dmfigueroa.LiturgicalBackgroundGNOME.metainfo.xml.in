@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>com.dmfigueroa.LiturgicalBackgroundGNOME</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-3.0-or-later</project_license>
+  <name>Liturgical Wallpaper</name>
+  <summary>Follow the Colombian liturgical calendar</summary>
+  <description>
+    <p>Automatically changes the GNOME wallpaper to an image selected for the current Colombian liturgical color.</p>
+    <p>The calendar is supplied by a normalized web service and remains available from a local cache while offline.</p>
+  </description>
+  <developer id="com.dmfigueroa"><name>David Figueroa</name></developer>
+  <url type="homepage">https://example.invalid/liturgical-wallpaper</url>
+  <translation type="gettext">liturgical-background-gnome</translation>
+  <launchable type="desktop-id">com.dmfigueroa.LiturgicalBackgroundGNOME.desktop</launchable>
+  <content_rating type="oars-1.1" />
+  <releases><release version="0.1.0" date="2026-08-23"><description><p>Initial development release.</p></description></release></releases>
+</component>

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Liturgical Wallpaper
+Exec=com.dmfigueroa.LiturgicalBackgroundGNOME
+Icon=com.dmfigueroa.LiturgicalBackgroundGNOME
+Terminal=false
+Type=Application
+Categories=Utility;
+Keywords=wallpaper;liturgical;calendar;
+StartupNotify=true
+DBusActivatable=false

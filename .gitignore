@@ -1,0 +1,4 @@
+_build*/
+.flatpak-build*/
+flatpak-repo*/
+*.flatpak

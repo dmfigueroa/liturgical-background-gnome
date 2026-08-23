@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gresources>
+  <gresource prefix="/com/dmfigueroa/LiturgicalBackgroundGNOME/js">
+    <file>main.js</file>
+    <file>thumbnail.js</file>
+    <file>application.js</file>
+    <file>window.js</file>
+    <file>config.js</file>
+    <file>api/calendar-client.js</file><file>api/calendar-validator.js</file>
+    <file>calendar/calendar-repository.js</file><file>calendar/liturgical-state.js</file><file>calendar/scheduler.js</file>
+    <file>portals/background-portal.js</file><file>portals/request.js</file><file>portals/wallpaper-portal.js</file>
+    <file>utils/async.js</file>
+    <file>wallpaper/application-state.js</file><file>wallpaper/thumbnail-cache.js</file><file>wallpaper/wallpaper-repository.js</file><file>wallpaper/wallpaper-service.js</file>
+  </gresource>
+</gresources>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist gettext-domain="liturgical-background-gnome">
+	<schema id="com.dmfigueroa.LiturgicalBackgroundGNOME" path="/com/dmfigueroa/LiturgicalBackgroundGNOME/">
+		<key name="automatic-enabled" type="b"><default>false</default><summary>Enable automatic changes</summary></key>
+		<key name="background-permission-denied" type="b"><default>false</default><summary>Background permission denied</summary></key>
+		<key name="vespers-time" type="s"><default>'18:00'</default><summary>First Vespers time</summary></key>
+		<key name="wallpaper-target" type="s"><default>'background'</default><summary>Wallpaper target</summary></key>
+		<key name="api-base-url" type="s"><default>'http://127.0.0.1:3000'</default><summary>API base URL</summary></key>
+		<key name="wallpaper-green" type="s"><default>''</default></key><key name="wallpaper-white" type="s"><default>''</default></key>
+		<key name="wallpaper-red" type="s"><default>''</default></key><key name="wallpaper-violet" type="s"><default>''</default></key>
+		<key name="wallpaper-rose" type="s"><default>''</default></key>
+		<key name="wallpaper-unknown" type="s"><default>''</default></key>
+	</schema>
+</schemalist>

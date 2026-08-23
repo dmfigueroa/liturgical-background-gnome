@@ -1,0 +1,13 @@
+import GLib from 'gi://GLib';
+import {nextScheduledEvent} from '../src/calendar/scheduler.js';
+import {equal} from './helpers.js';
+const time = value => GLib.DateTime.new_from_iso8601(value, null);
+let event = nextScheduledEvent(time('2026-08-22T17:59:00-05:00'), 'America/Bogota', '18:00');
+equal(event.kind, 'vespers'); equal(event.at, time('2026-08-22T18:00:00-05:00').to_unix());
+event = nextScheduledEvent(time('2026-08-22T18:01:00-05:00'), 'America/Bogota', '18:00');
+equal(event.kind, 'midnight'); equal(event.at, time('2026-08-23T00:00:00-05:00').to_unix());
+event = nextScheduledEvent(time('2026-12-31T23:59:00-05:00'), 'America/Bogota', '18:00');
+equal(event.at, time('2027-01-01T00:00:00-05:00').to_unix());
+event = nextScheduledEvent(time('2026-08-22T12:00:00-05:00'), 'America/Bogota', '18:00', time('2026-08-22T13:00:00-05:00').to_unix());
+equal(event.kind, 'refresh');
+print('scheduler tests passed');
