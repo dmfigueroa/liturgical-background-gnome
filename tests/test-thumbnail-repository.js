@@ -8,7 +8,7 @@ directory.make_directory(null);
 const source = directory.get_child('source.png');
 const png = GLib.base64_decode('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=');
 source.replace_contents(png, null, false, Gio.FileCreateFlags.REPLACE_DESTINATION, null);
-const launcher = GLib.build_filenamev([GLib.get_current_dir(), 'tests', 'thumbnail-launcher.js']);
+const launcher = Gio.File.new_for_uri(import.meta.url).get_parent().get_child('thumbnail-launcher.js').get_path();
 const repository = new WallpaperRepository({}, directory.get_path(), ['/usr/bin/gjs', '-m', launcher]);
 try {
     const first = await repository.thumbnailFor(source.get_path());
