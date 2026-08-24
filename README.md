@@ -6,7 +6,7 @@ The development application ID is `com.dmfigueroa.LiturgicalBackgroundGNOME`. Ch
 
 ## Architecture
 
-`CalendarClient` fetches `GET /v1/calendar` with libsoup and ETags. `CalendarRepository` validates and atomically persists the latest valid response. Pure `liturgical-state` code chooses the effective cached civil day in `America/Bogota`. `WallpaperService` selects an application-managed image, suppresses redundant writes, and delegates only the portal protocol to `WallpaperPortal`. `BackgroundPortal` owns background/autostart permission. The scheduler calculates midnight, First Vespers, and refresh-deadline events, with an hourly suspend/clock-change safety check.
+`CalendarClient` fetches `GET /v1/today` with libsoup and ETags, validates its `today` and `tomorrow` entries, and normalizes them into the application's two-day calendar model. `CalendarRepository` atomically persists that model. Pure `liturgical-state` code chooses the effective cached civil day in `America/Bogota`. `WallpaperService` selects an application-managed image, suppresses redundant writes, and delegates only the portal protocol to `WallpaperPortal`. `BackgroundPortal` owns background/autostart permission. The scheduler calculates midnight, First Vespers, and refresh-deadline events, with an hourly suspend/clock-change safety check.
 
 The client deliberately does not parse the CEC Ordo. The service has already normalized precedence and First Vespers into `evening.transitionsToNextDay`; duplicating that theological/calendar logic in the desktop app would create inconsistent answers.
 
@@ -28,7 +28,7 @@ flatpak build .flatpak-build meson compile -C _build
 flatpak build .flatpak-build meson test -C _build --print-errorlogs
 ```
 
-The server defaults to `http://127.0.0.1:3000`. Configure it inside the development sandbox with:
+The calendar source defaults to `https://liturgical-color.dmfigueroa.com/v1/today`. Configure its base URL inside the development sandbox with:
 
 ```sh
 flatpak run --command=gsettings com.dmfigueroa.LiturgicalBackgroundGNOME \

@@ -1,4 +1,4 @@
-import {COLORS} from '../config.js';
+import {CALENDAR_TIMEZONE, COLORS} from '../config.js';
 
 function isString(value) { return typeof value === 'string'; }
 function isNullableString(value) { return value === null || isString(value); }
@@ -18,8 +18,7 @@ export function validateDay(day) {
 
 export function validateCalendar(calendar) {
     if (!calendar || typeof calendar !== 'object' ||
-        !isString(calendar.calendar) || !isString(calendar.timezone) ||
-        !isString(calendar.fetchedAt) || !isDate(calendar.validFrom) ||
+        !isString(calendar.timezone) || !isDate(calendar.validFrom) ||
         !isDate(calendar.validThrough) || typeof calendar.stale !== 'boolean' ||
         !Array.isArray(calendar.days) || !calendar.days.every(validateDay))
         return false;
@@ -28,10 +27,26 @@ export function validateCalendar(calendar) {
         dates.every((date, index) => index === 0 || dates[index - 1] < date);
 }
 
+function normalizeTodayResponse(response) {
+    if (!response || typeof response !== 'object' || !isDate(response.date) ||
+        !validateDay(response.today) || !validateDay(response.tomorrow) ||
+        response.date !== response.today.date || response.today.date >= response.tomorrow.date)
+        return null;
+    return {
+        timezone: CALENDAR_TIMEZONE,
+        validFrom: response.today.date,
+        validThrough: response.tomorrow.date,
+        stale: false,
+        days: [response.today, response.tomorrow],
+    };
+}
+
 export function parseCalendar(text) {
     let value;
     try { value = JSON.parse(text); } catch { throw new Error('Invalid JSON response'); }
-    if (!validateCalendar(value))
+    if (validateCalendar(value)) return value;
+    const calendar = normalizeTodayResponse(value);
+    if (!calendar)
         throw new Error('Invalid calendar response');
-    return value;
+    return calendar;
 }
