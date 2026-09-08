@@ -15,6 +15,11 @@
   <launchable type="desktop-id">com.dmfigueroa.LiturgicalBackgroundGNOME.desktop</launchable>
   <content_rating type="oars-1.1" />
   <releases>
+    <release version="0.1.5" date="2026-09-08">
+      <description>
+        <p>Install application icons at standard and high-resolution sizes.</p>
+      </description>
+    </release>
     <release version="0.1.4" date="2026-09-08">
       <description>
         <p>Use the new application logo in GNOME and Flatpak installations.</p>
